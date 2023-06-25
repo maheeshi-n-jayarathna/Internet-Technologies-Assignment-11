@@ -14,8 +14,8 @@ import {ItemController} from "./ItemController.js";
 
 export class OrderController{
     constructor() {
-        $('#selectOrderCustomerId').change((event)=>this.handleSelectCustomerChange(event));
-        $('#selectOrderItemCode').change((event)=>this.handleSelectItemChange(event));
+        $('#inputCustomerId').change((event)=>this.handleSelectCustomerChange(event));
+        $('#inputItem').change((event)=>this.handleSelectItemChange(event));
         $('#btnAddToCartItem').click(this.handleItemAddToCart.bind(this));
         $('#inputDiscount').on('keyup', this.handleDiscountChange.bind(this));
         $('#inputCash').on('keyup', this.handleCashChange.bind(this));
@@ -36,23 +36,23 @@ export class OrderController{
         }else {
             order_id = "O-001";
         }
-        $('#txtOrderId').val(order_id);
+        $('#inputOrderId').val(order_id);
     }
     handleLoadOrderDate(){
-        $('#txtOrderDate').val(new Date(Date.now()).toLocaleDateString());
+        $('#inputDate').val(new Date(Date.now()).toLocaleDateString());
     }
     handleLoadCustomerIDS(){
         let customer_data_arr = getAllCustomerDB();
 
-        $('#selectOrderCustomerId').empty().append("<option selected>Choose...</option>");
+        $('#inputCustomerId').empty().append("<option selected>Choose...</option>");
         customer_data_arr.map((customer, index)=>{
-            $('#selectOrderCustomerId').append("<option class='option-customer-data'>"+customer._customer_id+"</option>");
+            $('#inputCustomerId').append("<option class='option-customer-data'>"+customer._customer_id+"</option>");
         });
     }
     handleLoadItemCodes(){
-        $('#selectOrderItemCode').empty().append("<option selected>Choose...</option>");
+        $('#inputItem').empty().append("<option selected>Choose...</option>");
         getAllItemDB().map((item, index)=>{
-            $('#selectOrderItemCode').append("<option class='option-item-data'>"+item._item_code+"</option>");
+            $('#inputItem').append("<option class='option-item-data'>"+item._item_code+"</option>");
         });
     }
     handleSelectCustomerChange(event){
@@ -62,17 +62,17 @@ export class OrderController{
         if (customer_id !== "Choose..."){
             customer_data_arr.map((customer, index) => {
                 if (customer._customer_id === customer_id) {
-                    $('#txtOrderCustomerNIC').val(customer._customer_nic);
-                    $('#txtOrderCustomerName').val(customer._customer_name);
-                    $('#txtOrderCustomerSalary').val(customer._customer_salary);
-                    $('#txtOrderCustomerAddress').val(customer._customer_address);
+                    $('#inputCustomerNIC').val(customer._customer_nic);
+                    $('#inputName').val(customer._customer_name);
+                    $('#inputSalary').val(customer._customer_salary);
+                    $('#inputAddress').val(customer._customer_address);
                 }
             });
         }else {
-            $('#txtOrderCustomerNIC').val("");
-            $('#txtOrderCustomerName').val("");
-            $('#txtOrderCustomerSalary').val("");
-            $('#txtOrderCustomerAddress').val("");
+            $('#inputCustomerNIC').val("");
+            $('#inputName').val("");
+            $('#inputSalary').val("");
+            $('#inputAddress').val("");
         }
     }
     handleSelectItemChange(event){
@@ -92,28 +92,28 @@ export class OrderController{
                             }
                         }
                     }
-                    $('#txtOrderItemDescription').val(item._item_name);
-                    $('#txtOrderItemUnitPrice').val(item._item_price);
-                    $('#txtOrderItemQtyOnHand').val(item._item_qty_on_stock);
+                    $('#inputDescription').val(item._item_name);
+                    $('#inputUnitPrice').val(item._item_price);
+                    $('#inputQtyOnH').val(item._item_qty_on_stock);
                 }
             });
         }else {
-            $('#txtOrderItemDescription').val("");
-            $('#txtOrderItemUnitPrice').val("");
-            $('#txtOrderItemQtyOnHand').val("");
+            $('#inputDescription').val("");
+            $('#inputUnitPrice').val("");
+            $('#inputQtyOnH').val("");
         }
     }
     handleItemAddToCart(){
         const $tblOrderCartBody = $('#tblOrderCartBody');
         const rows = $tblOrderCartBody.find('tr');
-        const $txtOrderItemQtyOnHand = $('#txtOrderItemQtyOnHand');
+        const $txtOrderItemQtyOnHand = $('#inputQtyOnH');
         const $lblTotal = $('#lblTotal');
         const $lblSubTotal = $('#lblSubTotal');
 
-        let item_code = $('#selectOrderItemCode').val();
-        let item_name = $('#txtOrderItemDescription').val();
-        let unit_price = $('#txtOrderItemUnitPrice').val();
-        let qty = parseInt($('#txtOrderItemQty').val());
+        let item_code = $('#inputItem').val();
+        let item_name = $('#inputDescription').val();
+        let unit_price = $('#inputUnitPrice').val();
+        let qty = parseInt($('#inputQty').val());
 
         if (item_code !== "Choose..." && qty ){
             let qty_on_hand = $txtOrderItemQtyOnHand.val() - qty;
@@ -150,7 +150,7 @@ export class OrderController{
         }
     }
     handleDiscountChange(){
-        const discount_percentage = $('#txtDiscount').val();
+        const discount_percentage = $('#inputDiscount').val();
         if (discount_percentage > 100 || discount_percentage < 0) {
             alert("Invalid Discount...!");
             return;
@@ -162,9 +162,9 @@ export class OrderController{
         $lblSubTotal.text(sub_total);
     }
     handleCashChange(){
-        const cash = $('#txtCash').val();
+        const cash = $('#inputCash').val();
         const total = parseFloat($('#lblSubTotal').text());
-        const $txtBalance = $('#txtBalance');
+        const $txtBalance = $('#inputBalance');
 
         if (cash < 0){
             alert("Invalid Cash..!")
@@ -176,9 +176,9 @@ export class OrderController{
         const $tblOrderCartBody = $('#tblOrderCartBody');
         const rows = $tblOrderCartBody.find('tr');
 
-        var order_id = $('#txtOrderId').val();
-        var order_date = $('#txtOrderDate').val();
-        var customer_id = $('#selectOrderCustomerId').val();
+        var order_id = $('#inputOrderId').val();
+        var order_date = $('#inputDate').val();
+        var customer_id = $('#inputCustomerId').val();
         var order_details = [];
 
         if (customer_id === "Choose..."){
@@ -224,21 +224,21 @@ export class OrderController{
     }
     handleClearAll(){
         this.handleLoadOrderId();
-        $('#selectOrderCustomerId').val("Choose...");
-        $('#txtOrderCustomerNIC').val("");
-        $('#txtOrderCustomerName').val("");
-        $('#txtOrderCustomerSalary').val("");
-        $('#txtOrderCustomerAddress').val("");
-        $('#selectOrderItemCode').val("Choose...");
-        $('#txtOrderItemDescription').val("");
-        $('#txtOrderItemUnitPrice').val("");
-        $('#txtOrderItemQtyOnHand').val("");
-        $('#txtOrderItemQty').val("");
+        $('#inputCustomerId').val("Choose...");
+        $('#inputCustomerNIC').val("");
+        $('#inputName').val("");
+        $('#inputSalary').val("");
+        $('#inputAddress').val("");
+        $('#inputItem').val("Choose...");
+        $('#inputDescription').val("");
+        $('#inputUnitPrice').val("");
+        $('#inputQtyOnH').val("");
+        $('#inputQty').val("");
         $('#lblTotal').text("0");
         $('#lblSubTotal').text("0");
-        $('#txtCash').val("");
-        $('#txtDiscount').val("");
-        $('#txtBalance').val("");
+        $('#inputCash').val("");
+        $('#inputDiscount').val("");
+        $('#inputBalance').val("");
         $('#tblOrderCartBody').empty();
     }
 }
