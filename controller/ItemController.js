@@ -4,9 +4,9 @@ import {OrderController} from "./OrderController.js";
 
 export class ItemController {
     constructor() {
-        $('#btnItemSave').click(this.handleSaveItemValidation.bind(this));
-        $('#btnItemUpdate').click(this.handleUpdateItemValidation.bind(this));
-        $('#btnItemDelete').click(this.handleDeleteItemValidation.bind(this));
+        $('#btn-add').click(this.handleSaveItemValidation.bind(this));
+        $('#btn-update').click(this.handleUpdateItemValidation.bind(this));
+        $('#btn-delete').click(this.handleDeleteItemValidation.bind(this));
         $('#tblItemBody').click((event)=>this.handleSelectItemTable(event));
 
         this.handleLoadItem();

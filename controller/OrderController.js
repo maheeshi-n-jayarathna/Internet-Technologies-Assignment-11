@@ -17,8 +17,8 @@ export class OrderController{
         $('#selectOrderCustomerId').change((event)=>this.handleSelectCustomerChange(event));
         $('#selectOrderItemCode').change((event)=>this.handleSelectItemChange(event));
         $('#btnAddToCartItem').click(this.handleItemAddToCart.bind(this));
-        $('#txtDiscount').on('keyup', this.handleDiscountChange.bind(this));
-        $('#txtCash').on('keyup', this.handleCashChange.bind(this));
+        $('#inputDiscount').on('keyup', this.handleDiscountChange.bind(this));
+        $('#inputCash').on('keyup', this.handleCashChange.bind(this));
         $('#btnOrderPurchase').click(this.handlePurchaseOrder.bind(this));
 
         this.handleLoadOrderId();

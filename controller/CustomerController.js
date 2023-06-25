@@ -4,9 +4,9 @@ import {OrderController} from "./OrderController.js";
 
 export class CustomerController {
     constructor() {
-        $('#btnCustomerSave').click(this.handleSaveCustomerValidation.bind(this));
-        $('#btnCustomerUpdate').click(this.handleUpdateCustomerValidation.bind(this));
-        $('#btnCustomerDelete').click(this.handleDeleteCustomerValidation.bind(this));
+        $('#btn_add').click(this.handleSaveCustomerValidation.bind(this));
+        $('#btn_update').click(this.handleUpdateCustomerValidation.bind(this));
+        $('#btn_delete').click(this.handleDeleteCustomerValidation.bind(this));
         $('#tblCustomerBody').click(event=>this.handleSelectCustomer(event));
 
         this.handleSaveCustomer.bind(this);
